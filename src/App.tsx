@@ -6,11 +6,15 @@ import Home from './components/Home/Home';
 import MainHeader from './components/MainHeader/MainHeader';
 import Search from './components/Search/Search';
 import AuthContext from './store/auth-context';
+import Admin from './components/Admin/Admin';
+import Users from './components/Users/Users';
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSearching, setIsSearch] = useState(false);
+  const [isOnAdminPage, setIsOnAdmin] = useState(false);
+  const [isOnUsersPage, setIsOnUsers] = useState(false);
 
   useEffect(()=>{
     const storedUserLoggedInInfo = localStorage.getItem('isLoggedIn');
@@ -35,12 +39,27 @@ function App() {
     event.preventDefault();
     console.log("You clicked search");
     setIsSearch(true);
+    setIsOnUsers(false);
+    setIsOnAdmin(false);
   }
 
   const onSearchHandler = (mprnToSearch: string) => {
     //event.preventDefault();
     console.log("You searched " + mprnToSearch);
+  }
 
+  const onClickAdminHandler = (event: any) => {
+    event.preventDefault();
+    console.log("You clicked on Admin");
+    setIsOnAdmin(true);
+    setIsOnUsers(false);
+  }
+
+  const onClickUsersHandler = (event: any) => {
+    event.preventDefault();
+    setIsOnAdmin(false);
+    setIsSearch(false);
+    setIsOnUsers(true);
   }
 
   const logoutHandler = () => {
@@ -49,14 +68,25 @@ function App() {
   };
 
   return (
-    <React.Fragment>
-      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} onClickSearch={onClickSearchHandler} />
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: isLoggedIn,
+        isSearching: isSearching,
+        isOnAdminPage: isOnAdminPage,
+        onLogout: logoutHandler
+      }}>
+      <MainHeader onLogout={logoutHandler} 
+        onClickSearch={onClickSearchHandler} 
+        onClickAdmin={onClickAdminHandler}
+        onClickUsers={onClickUsersHandler}  />
       <main>
-        {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && !isSearching && <Home onLogout={logoutHandler} />}
+        {!isLoggedIn  && <Login onLogin={loginHandler} />}
+        {isLoggedIn && !(isSearching || isOnAdminPage || isOnUsersPage) && <Home onLogout={logoutHandler} />}
         {isLoggedIn && isSearching && <Search onSearch={onSearchHandler}/>}
+        {isLoggedIn && isOnAdminPage && <Admin />}
+        {isLoggedIn && isOnUsersPage && <Users />}
       </main>
-    </React.Fragment>
+    </AuthContext.Provider>
   );
 }
 

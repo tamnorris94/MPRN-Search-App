@@ -9,11 +9,6 @@ interface searchInputState {
     isValid: boolean | any | null | undefined
 }
 
-const initialSearchState: searchInputState = {
-    value: "",
-    isValid: null,
-}
-
 type State = {
   value: string,
   isValid: boolean | null
@@ -34,8 +29,6 @@ const mprnInputReducer = (state: State, action: Action): State => {
   }
   return { value: "", isValid: false };
 };
-
-
 
  const Search = (props: any) => {
   const [formIsValid, setFormIsValid] = useState(false);
