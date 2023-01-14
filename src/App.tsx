@@ -5,10 +5,12 @@ import Login2 from './components/Login/Login2';
 import Home from './components/Home/Home';
 import MainHeader from './components/MainHeader/MainHeader';
 import Search from './components/Search/Search';
+import AuthContext from './store/auth-context';
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSearching, setIsSearch] = useState(false);
 
   useEffect(()=>{
     const storedUserLoggedInInfo = localStorage.getItem('isLoggedIn');
@@ -29,8 +31,16 @@ function App() {
     setIsLoggedIn(true);
   };
 
-  const searchHandler = (searchInput: string) => {
-    console.log("You searched");
+  const onClickSearchHandler = (event: any) => {
+    event.preventDefault();
+    console.log("You clicked search");
+    setIsSearch(true);
+  }
+
+  const onSearchHandler = (mprnToSearch: string) => {
+    //event.preventDefault();
+    console.log("You searched " + mprnToSearch);
+
   }
 
   const logoutHandler = () => {
@@ -40,11 +50,11 @@ function App() {
 
   return (
     <React.Fragment>
-      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} onClickSearch={onClickSearchHandler} />
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home onLogout={logoutHandler} />}
-        {isLoggedIn && <Search onSearch={searchHandler} />}
+        {isLoggedIn && !isSearching && <Home onLogout={logoutHandler} />}
+        {isLoggedIn && isSearching && <Search onSearch={onSearchHandler}/>}
       </main>
     </React.Fragment>
   );

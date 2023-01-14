@@ -18,7 +18,7 @@ const Navigation = (props: any) => {
         )}
         {props.isLoggedIn && (
           <li>
-            <a href="/">MPRN Search</a>
+            <a href="/" onClick={props.onClickSearch}>MPRN Search</a>
           </li>
         )}
         {props.isLoggedIn && (
