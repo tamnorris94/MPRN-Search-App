@@ -7,6 +7,7 @@ import Search from './components/Search/Search';
 import AuthContext from './store/auth-context';
 import Admin from './components/Admin/Admin';
 import Users from './components/Users/Users';
+import NavigationContext from './store/search-contect';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
   }
 
   const ctx = useContext(AuthContext);
+  const navCtx = useContext(NavigationContext)
 
   return (
     <React.Fragment>
