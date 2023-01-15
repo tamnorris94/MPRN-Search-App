@@ -12,24 +12,24 @@ const Navigation = (props: any) => {
             <ul>
               {ctx.isLoggedIn && (
                 <li>
-                  <a href="/" onClick={props.onClickUsers}>Users</a>
+                  <a href="/" onClick={ctx.onClickUsers}>Users</a>
                 </li>
               )}
               {ctx.isLoggedIn && (
                 <li>
-                  <a href="/" onClick={props.onClickAdmin}>Admin</a>
+                  <a href="/" onClick={ctx.onClickAdmin}>Admin</a>
                 </li>
               )}
               {ctx.isLoggedIn && (
                 <li>
-                  <a href="/" onClick={props.onClickSearch}>
+                  <a href="/" onClick={ctx.onClickSearch}>
                     MPRN Search
                   </a>
                 </li>
               )}
               {ctx.isLoggedIn && (
                 <li>
-                  <button onClick={props.onLogout}>Logout</button>
+                  <button onClick={ctx.onLogout}>Logout</button>
                 </li>
               )}
             </ul>

@@ -24,8 +24,6 @@ function App() {
     }
   },[]);
 
- 
-
   const loginHandler = (email: string, password: string) => {
     // We should of course check email and password
     // But it's just a dummy/ demo anyways
@@ -53,6 +51,7 @@ function App() {
     console.log("You clicked on Admin");
     setIsOnAdmin(true);
     setIsOnUsers(false);
+    setIsSearch(false);
   }
 
   const onClickUsersHandler = (event: any) => {
@@ -73,12 +72,12 @@ function App() {
         isLoggedIn: isLoggedIn,
         isSearching: isSearching,
         isOnAdminPage: isOnAdminPage,
-        onLogout: logoutHandler
+        onLogout: logoutHandler,
+        onClickSearch: onClickSearchHandler,
+        onClickAdmin: onClickAdminHandler,
+        onClickUsers: onClickUsersHandler
       }}>
-      <MainHeader onLogout={logoutHandler} 
-        onClickSearch={onClickSearchHandler} 
-        onClickAdmin={onClickAdminHandler}
-        onClickUsers={onClickUsersHandler}  />
+        <MainHeader />
       <main>
         {!isLoggedIn  && <Login onLogin={loginHandler} />}
         {isLoggedIn && !(isSearching || isOnAdminPage || isOnUsersPage) && <Home onLogout={logoutHandler} />}
