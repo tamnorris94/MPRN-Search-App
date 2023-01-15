@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useReducer } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Search.module.css";
 import Button from "../UI/Button/Button";
 
-interface searchInputState {
-    value: string,
-    isValid: boolean | any | null | undefined
-}
 
 type State = {
   value: string,
@@ -42,7 +38,7 @@ const mprnInputReducer = (state: State, action: Action): State => {
     console.log("emailChangeHandler runs");
     dispatchMPRN({ type: "MPRN_INPUT", value: event.target.value });
 
-    setFormIsValid(event.target.value.trim().length == 13);
+    setFormIsValid(event.target.value.trim().length === 13);
   };
 
   const validateMPRNHandler = () => {
@@ -54,6 +50,7 @@ const mprnInputReducer = (state: State, action: Action): State => {
     console.log("submitHandler runs");
     event.preventDefault();
     props.onSearch(mprnInputState.value);
+    mprnInputState.value =''; 
   };
 
   return (

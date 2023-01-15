@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useContext, useReducer } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
+import AuthContext from '../../store/auth-context';
 
 const emailReducer = (state: any, action: any) => {
   console.log("emailReducer runs");
@@ -28,10 +29,7 @@ const passwordReducer = (state: any, action: any) => {
 
 const Login = (props: any) => {
   console.log("Login runs");
-  // const [enteredEmail, setEnteredEmail] = useState('');
-  // const [emailIsValid, setEmailIsValid] = useState();
-  // const [enteredPassword, setEnteredPassword] = useState('');
-  // const [passwordIsValid, setPasswordIsValid] = useState();
+
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
@@ -43,6 +41,8 @@ const Login = (props: any) => {
     value: '',
     isValid: null,
   });
+
+  const authCtx = useContext(AuthContext);
 
   // useEffect(() => {
   //   console.log('EFFECT RUNNING');
@@ -97,8 +97,9 @@ const Login = (props: any) => {
 
   const submitHandler = (event: any) => {
     console.log("submitHandler runs");
+    console.log("Password is "+passwordState.value)
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    authCtx.onLogin(emailState.value, passwordState.value);
   };
 
   return (
