@@ -9,7 +9,7 @@ const NavigationContext = React.createContext({
   onClickUsers: (event:any)=>{}
 });
 
-  export const NavigationContextProvider = () => {
+  export const NavigationContextProvider = (props: any) => {
       const [isSearching, setIsSearch] = useState(false);
       const [isOnAdminPage, setIsOnAdmin] = useState(false);
       const [isOnUsersPage, setIsOnUsers] = useState(false);
@@ -36,6 +36,21 @@ const NavigationContext = React.createContext({
         setIsOnUsers(false);
         setIsOnAdmin(false);
       }
+
+      return (
+        <NavigationContext.Provider
+          value={{
+            isSearching: isSearching,
+            isOnUsersPage: isOnUsersPage,
+            isOnAdminPage: isOnAdminPage,
+            onClickSearch: onClickSearchHandler,
+            onClickAdmin: onClickAdminHandler,
+            onClickUsers: onClickUsersHandler,
+          }}
+        >
+          {props.children}
+        </NavigationContext.Provider>
+      );
   }
 
 

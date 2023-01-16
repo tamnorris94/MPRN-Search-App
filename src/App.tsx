@@ -7,7 +7,7 @@ import Search from './components/Search/Search';
 import AuthContext from './store/auth-context';
 import Admin from './components/Admin/Admin';
 import Users from './components/Users/Users';
-import NavigationContext from './store/search-contect';
+import NavigationContext from './store/navigation-context';
 
 function App() {
 
@@ -23,10 +23,10 @@ function App() {
       <MainHeader />
             <main>
               {!ctx.isLoggedIn  && <Login />}
-              {ctx.isLoggedIn && !(ctx.isSearching || ctx.isOnAdminPage || ctx.isOnUsersPage) && <Home />}
-              {ctx.isLoggedIn && ctx.isSearching && <Search onSearch={onSearchHandler}/>}
-              {ctx.isLoggedIn && ctx.isOnAdminPage && <Admin />}
-              {ctx.isLoggedIn && ctx.isOnUsersPage && <Users />}
+              {ctx.isLoggedIn && !(navCtx.isSearching || navCtx.isOnAdminPage || navCtx.isOnUsersPage) && <Home />}
+              {ctx.isLoggedIn && navCtx.isSearching && <Search onSearch={onSearchHandler}/>}
+              {ctx.isLoggedIn && navCtx.isOnAdminPage && <Admin />}
+              {ctx.isLoggedIn && navCtx.isOnUsersPage && <Users />}
             </main>
     </React.Fragment> 
   );
