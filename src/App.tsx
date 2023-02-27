@@ -23,8 +23,8 @@ function App() {
       <MainHeader />
             <main>
               {!ctx.isLoggedIn  && <Login />}
-              {ctx.isLoggedIn && !(navCtx.isSearching || navCtx.isOnAdminPage || navCtx.isOnUsersPage) && <Home />}
-              {ctx.isLoggedIn && navCtx.isSearching && <Search onSearch={onSearchHandler}/>}
+              {ctx.isLoggedIn && !(navCtx.isOnSearchPage || navCtx.isOnAdminPage || navCtx.isOnUsersPage) && <Home />}
+              {ctx.isLoggedIn && navCtx.isOnSearchPage && <Search onSearch={onSearchHandler}/>}
               {ctx.isLoggedIn && navCtx.isOnAdminPage && <Admin />}
               {ctx.isLoggedIn && navCtx.isOnUsersPage && <Users />}
             </main>

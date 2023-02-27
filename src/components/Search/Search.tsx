@@ -3,22 +3,26 @@ import React, { useState, useReducer } from "react";
 import Card from "../UI/Card/Card";
 import classes from "./Search.module.css";
 import Button from "../UI/Button/Button";
+import Input from "../UI/Input/Input";
+import SearchResults from "../SearchResults/SearchResults";
+import {IMPRNDetails} from '../Interfaces/IMPRNDetails';
+import DummyValidMPRNResponse from '../../DummyResponses/DummyValidMPRNResponse';
 
 
 type State = {
-  value: string,
-  isValid: boolean | null
-}
+  value: string;
+  isValid: boolean | null;
+};
 
 type Action = {
-  type: string,
-  value: string
-}
+  type: string;
+  value: string;
+};
 
 const mprnInputReducer = (state: State, action: Action): State => {
   console.log("emailReducer runs");
   if (action.type === "MPRN_INPUT") {
-    return { value: action.value, isValid: action.value.length === 13};
+    return { value: action.value, isValid: action.value.length === 13 };
   }
   if (action.type === "MPRN_BLUR") {
     return { value: state.value, isValid: state.value.length === 13 };
@@ -26,12 +30,19 @@ const mprnInputReducer = (state: State, action: Action): State => {
   return { value: "", isValid: false };
 };
 
- const Search = (props: any) => {
+const Search = (props: any) => {
   const [formIsValid, setFormIsValid] = useState(false);
+  const [mprnSearched, setMPRNSearhed] = useState(false);
+  const [mprnFound, setMPRNFound] = useState(false);
+  const [MPRNDetails, setMPRNDetails] = useState<IMPRNDetails>();
+  
+
+  const searchedMPRNDetails: IMPRNDetails = DummyValidMPRNResponse;
+
 
   const [mprnInputState, dispatchMPRN] = useReducer(mprnInputReducer, {
     value: "",
-    isValid: null
+    isValid: null,
   });
 
   const mprnChangeHandler = (event: any) => {
@@ -49,22 +60,33 @@ const mprnInputReducer = (state: State, action: Action): State => {
   const submitHandler = (event: any) => {
     console.log("submitHandler runs");
     event.preventDefault();
-    props.onSearch(mprnInputState.value);
-    mprnInputState.value =''; 
+    setMPRNSearhed(true);
+    //props.onSearch(mprnInputState.value);
+    if(mprnInputState.value === "1111111111111"){
+      setMPRNFound(false);
+    }
+    else{
+      setMPRNFound(true);
+      const searchedMPRNDetails: IMPRNDetails = DummyValidMPRNResponse;
+      setMPRNDetails(searchedMPRNDetails);
+    }
+    mprnInputState.value = "";
   };
 
   return (
-    <Card className={classes.login}>
+    <React.Fragment>
+      <Card className={classes.login}>
       <form onSubmit={submitHandler}>
         <div
           className={`${classes.control} ${
             mprnInputState.isValid === false ? classes.invalid : ""
           }`}
         >
-          <label htmlFor="searchInput">MPRN Search</label>
-          <input
+          <Input
+            label="MPRN Search"
             type="number"
             id="searchInput"
+            isValid={mprnInputState.isValid}
             value={mprnInputState.value}
             onChange={mprnChangeHandler}
             onBlur={validateMPRNHandler}
@@ -77,6 +99,10 @@ const mprnInputReducer = (state: State, action: Action): State => {
         </div>
       </form>
     </Card>
+    {mprnFound && <SearchResults mprnDetails={MPRNDetails || undefined}/>}
+    {mprnSearched && !mprnFound && <h1>MPRN Not Found</h1>}
+    </React.Fragment>
+    
   );
 };
 

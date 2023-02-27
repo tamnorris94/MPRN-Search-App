@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 
 const NavigationContext = React.createContext({
-  isSearching: false,
+  isOnSearchPage: false,
   isOnUsersPage: false,
   isOnAdminPage: false,
   onClickSearch: (event:any)=>{},
@@ -10,29 +10,30 @@ const NavigationContext = React.createContext({
 });
 
   export const NavigationContextProvider = (props: any) => {
-      const [isSearching, setIsSearch] = useState(false);
+      const [isOnSearchPage, setIsOnSearchPage] = useState(false);
       const [isOnAdminPage, setIsOnAdmin] = useState(false);
       const [isOnUsersPage, setIsOnUsers] = useState(false);
+      const [isMPRNSearched, setIsMPRNSearched] = useState(false);
 
       const onClickAdminHandler = (event: any) => {
         event.preventDefault();
         console.log("You clicked on Admin");
         setIsOnAdmin(true);
         setIsOnUsers(false);
-        setIsSearch(false);
+        setIsOnSearchPage(false);
       }
     
       const onClickUsersHandler = (event: any) => {
         event.preventDefault();
         setIsOnAdmin(false);
-        setIsSearch(false);
+        setIsOnSearchPage(false);
         setIsOnUsers(true);
       }
     
       const onClickSearchHandler = (event: any) => {
         event.preventDefault();
         console.log("You clicked search");
-        setIsSearch(true);
+        setIsOnSearchPage(true);
         setIsOnUsers(false);
         setIsOnAdmin(false);
       }
@@ -40,7 +41,7 @@ const NavigationContext = React.createContext({
       return (
         <NavigationContext.Provider
           value={{
-            isSearching: isSearching,
+            isOnSearchPage: isOnSearchPage,
             isOnUsersPage: isOnUsersPage,
             isOnAdminPage: isOnAdminPage,
             onClickSearch: onClickSearchHandler,

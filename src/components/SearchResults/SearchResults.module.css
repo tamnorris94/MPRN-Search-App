@@ -1,0 +1,45 @@
+.mprnSearch-results {
+    width: 50rem;
+    max-width: 90%;
+    margin: 3rem auto;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+
+.mprnSearch-results table-continer {
+    margin-top: 0.5rem;
+    width: auto;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    max-width: 100%;
+}
+
+.mprnSearch-results table-container table {
+    margin-top: 0.5rem;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+}
+
+.mprnSearch-results table thead {
+    background-color: rgb(43, 163, 161);
+}
+
+.mprnSearch-results table {
+    border: 1px solid;
+    table-layout:fixed;
+    width:100%;
+  }
+
+.mprnSearch-results table tr th,
+.mprnSearch-results table tr td {
+    padding: 10px;
+    text-align: left;
+    min-width: 150px;
+    background-color: rgb(160, 92, 128);
+}
+
+.mprnSearch-results table tr td {
+    border-bottom: 1px solid rgb(70, 61, 139);
+    background-color: rgb(162, 170, 170);
+}
