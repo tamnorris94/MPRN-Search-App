@@ -1,4 +1,6 @@
 import React, { useState, useReducer } from "react";
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
 import Card from "../UI/Card/Card";
 import classes from "./Search.module.css";
@@ -80,8 +82,7 @@ const Search = (props: any) => {
         <div
           className={`${classes.control} ${
             mprnInputState.isValid === false ? classes.invalid : ""
-          }`}
-        >
+          }`}>
           <Input
             label="MPRN Search"
             type="number"
@@ -96,6 +97,11 @@ const Search = (props: any) => {
           <Button type="submit" className={classes.btn} disabled={!formIsValid}>
             Search
           </Button>
+          <ButtonGroup>
+            <Button>Left</Button>
+            <Button>Middle</Button>
+            <Button>Right</Button>
+          </ButtonGroup>
         </div>
       </form>
     </Card>
